@@ -2,20 +2,23 @@ package com.example.aditya.matchscheduller.team
 
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.*
 import android.widget.*
-import com.example.aditya.matchscheduller.API.ApiRepositery
 import com.example.aditya.matchscheduller.R
-import com.example.aditya.matchscheduller.data.Team
+import com.example.aditya.matchscheduller.api.ApiRepositery
 import com.google.gson.Gson
 import org.jetbrains.anko.*
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
@@ -24,6 +27,10 @@ import utils.visible
 
 
 class TeamsFragment : Fragment(), AnkoComponent<Context>, TeamsView {
+    override fun showError(error: String) {
+        swipeRefresh.isRefreshing = false
+        view?.snackbar(error)
+    }
 
     private var teams: MutableList<Team> = mutableListOf()
     private lateinit var presenter: TeamsPresenter
@@ -37,33 +44,36 @@ class TeamsFragment : Fragment(), AnkoComponent<Context>, TeamsView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        (activity as AppCompatActivity).supportActionBar?.show()
         setHasOptionsMenu(true)
-
         val spinnerItems = resources.getStringArray(R.array.league)
         val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, spinnerItems)
         spinner.adapter = spinnerAdapter
-
         adapter = TeamsAdapter(teams) {
             startActivity<TeamDetail>("id" to "${it.teamId}","desc" to "${it.teamDescription}","name" to "${it.teamName}")
         }
-        listTeam.adapter = adapter
-
         val request = ApiRepositery()
         val gson = Gson()
         presenter = TeamsPresenter(this, request, gson)
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                leagueName = spinner.selectedItem.toString()
+        if(checkNetwork(context)){
+            listTeam.adapter = adapter
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                    leagueName = spinner.selectedItem.toString()
+                    presenter.getTeamList(leagueName)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
+            swipeRefresh.onRefresh {
                 presenter.getTeamList(leagueName)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }else{
+            alert("No Connection").show()
         }
 
-        swipeRefresh.onRefresh {
-            presenter.getTeamList(leagueName)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -111,25 +121,37 @@ class TeamsFragment : Fragment(), AnkoComponent<Context>, TeamsView {
 
         inflater?.inflate(R.menu.menu_search,menu)
         val searchItem = menu?.findItem(R.id.search_match)
-
         searchView = searchItem?.actionView as SearchView
         searchView.isIconified = false
+        if(checkNetwork(context)){
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        if (!query.toString().isEmpty()) {
+                            if (checkNetwork(context)) {
+                                presenter.getSearchTeam(query.toString())
+                            } else {
+                                alert("No Connextion").show()
+                            }
+                        }
+                        return true
+                    }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                presenter.getSearchTeam(query.toString())
-                return true
-            }
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        if (!newText.toString().isEmpty()){
+                            if(checkNetwork(context)){
+                                Log.d("INIKEYSEARCH",newText)
+                                presenter.getSearchTeam(newText.toString())
+                            }else{
+                                alert("No Connextion").show()
+                            }
+                        }
+                        return true
+                    }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.toString().isEmpty()){
-                    presenter.getSearchTeam(newText.toString())
-
-                }
-                return true
-            }
-
-        })
+                })
+        }else{
+            alert("no connection").show()
+        }
     }
 
     override fun showLoading() {
@@ -138,6 +160,11 @@ class TeamsFragment : Fragment(), AnkoComponent<Context>, TeamsView {
 
     override fun hideLoading() {
         progressBar.invisible()
+    }
+
+    fun checkNetwork(context:Context?):Boolean{
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected
     }
 
     override fun showTeamList(data: List<Team>) {

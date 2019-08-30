@@ -1,11 +1,11 @@
 package com.example.aditya.matchscheduller.detail
 
-import com.example.aditya.matchscheduller.API.ApiRepositery
-import com.example.aditya.matchscheduller.API.TheSportDBApi
-import com.example.aditya.matchscheduller.data.*
+import com.example.aditya.matchscheduller.api.ApiRepositery
+import com.example.aditya.matchscheduller.api.TheSportDBApi
+import com.example.aditya.matchscheduller.detailmatch.*
 import com.example.aditya.matchscheduller.lastmatch.TestContextProvider
-import com.example.aditya.matchscheduller.presenter.detailMatchPresenter
-import com.example.aditya.matchscheduller.view.DetailMatchView
+import com.example.aditya.matchscheduller.detailmatch.detailMatchPresenter
+import com.example.aditya.matchscheduller.detailmatch.DetailMatchView
 import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,7 +34,12 @@ class detailMatchPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = detailMatchPresenter(view, gson, apiRepository, TestContextProvider())
+        presenter = detailMatchPresenter(
+            view,
+            gson,
+            apiRepository,
+            TestContextProvider()
+        )
     }
 
 

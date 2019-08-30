@@ -2,12 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/match"
-            android:title="@string/match"/>
+            android:title="@string/liga"/>
 
     <item
             android:id="@+id/team"
-            android:title="@string/teams"/>
+            android:title="@string/teams"
+            android:icon="@drawable/ball"/>
     <item
             android:id="@+id/favorite"
+            android:icon="@drawable/favorite"
             android:title="@string/favorite_team"/>
 </menu>

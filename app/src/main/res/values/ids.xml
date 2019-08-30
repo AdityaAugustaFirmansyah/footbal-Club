@@ -5,7 +5,6 @@
     <item name="spinner" type="id"/>
     <item name="team_badge" type="id"/>
     <item name="team_name" type="id"/>
-    <item name="text_player" type="id"/>
     <item name="team_badge_favorite" type="id"/>
     <item name="team_name_favorite" type="id"/>
 </resources>

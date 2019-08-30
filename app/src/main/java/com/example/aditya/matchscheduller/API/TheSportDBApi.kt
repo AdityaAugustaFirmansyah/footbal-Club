@@ -1,4 +1,4 @@
-package com.example.aditya.matchscheduller.API
+package com.example.aditya.matchscheduller.api
 
 import com.example.aditya.matchscheduller.BuildConfig
 

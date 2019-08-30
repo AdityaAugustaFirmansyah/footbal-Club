@@ -12,14 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.aditya.matchscheduller.R
-import com.example.aditya.matchscheduller.adapter.FavoriteTeamsAdapter
 import com.example.aditya.matchscheduller.sqlite.TeamFavorite
 import com.example.aditya.matchscheduller.sqlite.databaseTeam
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
@@ -33,9 +31,8 @@ class FavoriteTeam : Fragment(),AnkoComponent<Context> {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        adapter = FavoriteTeamsAdapter(favorites){
-            startActivity<TeamDetail>("id" to "${it.teamId}","desc" to "${it.teamDesc}", "name" to "${it.teamName}")
+        adapter = FavoriteTeamsAdapter(favorites) {
+            startActivity<TeamDetail>("id" to "${it.teamId}", "desc" to "${it.teamDesc}", "name" to "${it.teamName}")
         }
 
         listTeam.adapter = adapter
@@ -67,7 +64,7 @@ class FavoriteTeam : Fragment(),AnkoComponent<Context> {
     override fun createView(ui: AnkoContext<Context>): View = with(ui){
         linearLayout {
             lparams (width = matchParent, height = wrapContent)
-            topPadding = dip(16)
+            topPadding = dip(40)
             leftPadding = dip(16)
             rightPadding = dip(16)
 

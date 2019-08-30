@@ -1,47 +1,41 @@
 package com.example.aditya.matchscheduller
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
-import org.jetbrains.anko.find
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBar
-import android.support.v7.widget.SearchView
-import android.view.Menu
-import android.view.MenuItem
-import android.view.SearchEvent
-import android.view.View
-import android.widget.Switch
-import android.widget.Toolbar
-import com.example.aditya.matchscheduller.data.Team
+import android.support.v7.app.AppCompatActivity
 import com.example.aditya.matchscheduller.favorite.Favorite
-import com.example.aditya.matchscheduller.search.SearchMatch
+import com.example.aditya.matchscheduller.league.ListLeagueFragment
 import com.example.aditya.matchscheduller.team.TeamsFragment
-import kotlinx.android.synthetic.main.activity_team_detail.*
-import org.jetbrains.anko.sdk27.coroutines.__SearchView_OnQueryTextListener
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity() {
-private lateinit var toolbar: ActionBar
+    private lateinit var toolbar: ActionBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         val bottomNavigationView = find<BottomNavigationView>(R.id.Bottom_Navbar)
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(mItemSelectedListener)
-        bottomNavigationView.selectedItemId = R.id.match
-
+        if (checkNetwork(this)) {
+            bottomNavigationView.setOnNavigationItemSelectedListener(mItemSelectedListener)
+            bottomNavigationView.selectedItemId = R.id.match
+        } else {
+            alert("No Connection").show()
+        }
         toolbar = supportActionBar!!
-    }
 
+    }
 
 
     private val mItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.match -> {
-                val matchFragment = Match.newInstance()
-                openFragment(matchFragment)
+                val leagueFragment = ListLeagueFragment.newInstance()
+                openFragment(leagueFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.team -> {
@@ -49,7 +43,7 @@ private lateinit var toolbar: ActionBar
                 openFragment(teamFragmet)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.favorite ->{
+            R.id.favorite -> {
                 val favouriteFragment = Favorite.newInstace()
                 openFragment(favouriteFragment)
                 return@OnNavigationItemSelectedListener true
@@ -58,8 +52,13 @@ private lateinit var toolbar: ActionBar
         false
     }
 
+    private fun checkNetwork(context: Context?): Boolean {
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected
+    }
+
     private fun openFragment(fragment: Fragment) {
-        val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame, fragment)
         transaction.addToBackStack(null)
         transaction.commit()

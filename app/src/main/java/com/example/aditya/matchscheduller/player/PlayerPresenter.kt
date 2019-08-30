@@ -1,9 +1,9 @@
 package com.example.aditya.matchscheduller.player
 
-import com.example.aditya.matchscheduller.API.ApiRepositery
-import com.example.aditya.matchscheduller.API.TheSportDBApi
+import android.util.Log
+import com.example.aditya.matchscheduller.api.ApiRepositery
+import com.example.aditya.matchscheduller.api.TheSportDBApi
 import com.example.aditya.matchscheduller.CoroutineContextProvider
-import com.example.aditya.matchscheduller.data.PlayerResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,9 +21,13 @@ class PlayerPresenter(
                     .doRequest(TheSportDBApi.getPlayer(idPlayer)).await(),
                 PlayerResponse::class.java
             )
-
+            Log.d("INIDATA",data.toString())
+            if (data.players == null){
+                view.showError("Gagal")
+            }else{
+                view.showPlayer(data.players)
+            }
             view.hideLoading()
-            view.showPlayer(data.players)
         }
     }
 }

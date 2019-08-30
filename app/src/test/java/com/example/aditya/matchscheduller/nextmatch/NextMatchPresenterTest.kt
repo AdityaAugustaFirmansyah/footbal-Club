@@ -1,9 +1,7 @@
 package com.example.aditya.matchscheduller.nextmatch
 
-import com.example.aditya.matchscheduller.API.ApiRepositery
+import com.example.aditya.matchscheduller.api.ApiRepositery
 import com.example.aditya.matchscheduller.lastmatch.TestContextProvider
-import com.example.aditya.matchscheduller.presenter.NextMatchPresenter
-import com.example.aditya.matchscheduller.view.NextMatchView
 import com.google.gson.Gson
 import org.junit.Before
 import org.junit.Test
@@ -25,7 +23,12 @@ class NextMatchPresenterTest {
     @Before
     fun setUp(){
         MockitoAnnotations.initMocks(this)
-        presenter = NextMatchPresenter(view, gson,apiRepositery,TestContextProvider())
+        presenter = NextMatchPresenter(
+            view,
+            gson,
+            apiRepositery,
+            TestContextProvider()
+        )
     }
 
     @Test

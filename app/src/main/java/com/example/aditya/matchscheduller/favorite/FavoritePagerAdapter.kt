@@ -3,13 +3,12 @@ package com.example.aditya.matchscheduller.favorite
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.aditya.matchscheduller.FavouriteFragment
 import com.example.aditya.matchscheduller.team.FavoriteTeam
 
 class FavoritePagerAdapter(fm:FragmentManager):FragmentPagerAdapter(fm){
     override fun getItem(p0: Int): Fragment {
         return when (p0){
-            0->FavouriteFragment()
+            0-> FavouriteFragment()
             else -> FavoriteTeam()
         }
     }

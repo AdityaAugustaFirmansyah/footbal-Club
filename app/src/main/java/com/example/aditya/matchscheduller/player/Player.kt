@@ -3,25 +3,24 @@ package com.example.aditya.matchscheduller.player
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.aditya.matchscheduller.API.ApiRepositery
-
+import androidx.core.os.bundleOf
 import com.example.aditya.matchscheduller.R
-import com.example.aditya.matchscheduller.adapter.PlayerAdapter
-import com.example.aditya.matchscheduller.data.PlayerModel
+import com.example.aditya.matchscheduller.api.ApiRepositery
+import com.example.aditya.matchscheduller.team.PlayerAdapter
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_player.*
 import kotlinx.android.synthetic.main.fragment_player.view.*
-import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.support.v4.ctx
 import utils.invisible
 import utils.visible
 
 class Player : Fragment(),PlayerView {
+    override fun showError(error: String) {
+        txt_error_player.text = error
+    }
 
     private  var player:MutableList<PlayerModel> = mutableListOf()
     private lateinit var presenter: PlayerPresenter
@@ -40,8 +39,8 @@ class Player : Fragment(),PlayerView {
         val request = ApiRepositery()
         val gson = Gson()
 
-        adapter = PlayerAdapter(player){
-            ctx.startActivity<PlayerDetail>("player" to "${it.playerId}")
+        adapter = PlayerAdapter(player) {
+            context?.startActivity<PlayerDetail>("player" to "${it.playerId}")
 
         }
         presenter = PlayerPresenter(this,request,gson)

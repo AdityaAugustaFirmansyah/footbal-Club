@@ -1,5 +1,6 @@
 package com.example.aditya.matchscheduller.team
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
@@ -10,10 +11,9 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.example.aditya.matchscheduller.API.ApiRepositery
+import com.example.aditya.matchscheduller.api.ApiRepositery
 import com.example.aditya.matchscheduller.R
 import com.example.aditya.matchscheduller.R.menu.detail_menu
-import com.example.aditya.matchscheduller.data.Team
 import com.example.aditya.matchscheduller.player.Player
 import com.example.aditya.matchscheduller.sqlite.TeamFavorite
 import com.example.aditya.matchscheduller.sqlite.databaseTeam
@@ -24,7 +24,6 @@ import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
-import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -48,16 +47,20 @@ class TeamDetail : AppCompatActivity(), TeamDetailView  {
     private lateinit var desc:String
     private lateinit var name:String
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppThemeDetailLeague)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team_detail)
 
         val intent = intent
-
         id = intent.getStringExtra("id")
         desc = intent.getStringExtra("desc")
         name = intent.getStringExtra("name")
 
+        collapsing_toolbar_team_detail.title = name
+        collapsing_toolbar_team_detail.setExpandedTitleColor(ContextCompat.getColor(this,android.R.color.transparent))
+        collapsing_toolbar_team_detail.setCollapsedTitleTextColor(ContextCompat.getColor(this,android.R.color.white))
         supportActionBar?.title = "Team Detail"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -93,9 +96,11 @@ class TeamDetail : AppCompatActivity(), TeamDetailView  {
     }
 
     override fun showTeamDetail(data: List<Team>) {
-        teams = Team(data[0].teamId,
+        teams = Team(
+            data[0].teamId,
             data[0].teamName,
-            data[0].teamBadge)
+            data[0].teamBadge
+        )
         Picasso.get().load(data[0].teamBadge).into(teamBadge)
         teamName.text = data[0].teamName
         teamFormedYear.text = data[0].teamFormedYear
@@ -116,7 +121,7 @@ class TeamDetail : AppCompatActivity(), TeamDetailView  {
     companion object {
         const val teams1 = "teams"
         const val id2 = "id"
-        fun startActivity(context: Context,team: Team,id:String){
+        fun startActivity(context: Context, team: Team, id:String){
             context.startActivity<TeamDetail>(teams1 to team, id2 to id)
         }
 
@@ -181,9 +186,9 @@ class TeamDetail : AppCompatActivity(), TeamDetailView  {
 
     private fun setFavorite() {
         if (isFavorite)
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_add)
-        else
             menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_added)
+        else
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_add)
     }
 }
 

@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DetailActivity">
+        tools:context=".detailmatch.DetailActivity">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -90,30 +90,28 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <ListView
+            <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/homeGoalDetail"
-                    android:textAlignment="center"
-                    tools:ignore="NestedScrolling"/>
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"/>
             <TextView
-                    android:layout_marginStart="48dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/goal_detail"
                     android:id="@+id/goalDetail"
-                    android:layout_toEndOf="@id/homeGoalDetail"
-                    android:layout_marginTop="0dp"
-                    android:layout_alignParentTop="true"/>
-            <ListView
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"/>
+            <TextView
                     android:layout_width="100dp"
                     android:layout_toEndOf="@id/goalDetail"
                     android:layout_marginStart="36dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:id="@+id/awayGoalDetail"
                     android:textAlignment="center"
-                    android:layout_alignParentTop="true"
-                    tools:ignore="NestedScrolling"/>
+                    android:layout_alignParentTop="true"/>
         </RelativeLayout>
         <android.widget.ProgressBar
                 android:layout_height="wrap_content"
@@ -122,25 +120,24 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
             <TextView
-                    android:id="@+id/LineupKiper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lineup_kiper"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="130dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
                     tools:ignore="RelativeOverlap"/>
-            <ListView
+            <TextView
                     android:id="@+id/homeLineupKiper"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    tools:ignore="NestedScrolling"/>
-            <ListView
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"/>
+            <TextView
                     android:id="@+id/AwayLineupKiper"
                     android:layout_width="100dp"
+                    android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:layout_alignParentEnd="true"
@@ -152,115 +149,105 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
-                    android:id="@+id/homeLineupDefender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lineup_defender"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="130dp"
-                    tools:ignore="RelativeOverlap"/>
-            <ListView
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"/>
+            <TextView
                     android:id="@+id/HomeLineupDefender"
                     android:layout_width="100dp"
+                    android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    tools:ignore="NestedScrolling"/>
-            <ListView
+                    android:textAlignment="center"/>
+            <TextView
                     android:id="@+id/AwayLineupDefender"
                     android:layout_width="100dp"
+                    android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    tools:ignore="NestedScrolling"/>
+                    android:layout_alignParentTop="true"/>
         </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
             <TextView
-                    android:id="@+id/LineupMid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lineup_mid"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="150dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
                     tools:ignore="RelativeOverlap"/>
-            <ListView
+            <TextView
                     android:id="@+id/HomeLineupMid"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    tools:ignore="NestedScrolling"/>
-            <ListView
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"/>
+            <TextView
                     android:id="@+id/AwayLineupMid"
                     android:layout_width="100dp"
+                    android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    tools:ignore="NestedScrolling"/>
+                    android:layout_alignParentTop="true"/>
         </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
-                    android:id="@+id/LineupForward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="@string/lineup_forward"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="130dp"
+                    android:layout_marginTop="20dp"
                     tools:ignore="RelativeOverlap"/>
-            <ListView
+            <TextView
                     android:id="@+id/HomeLineupForward"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    tools:ignore="NestedScrolling"/>
-            <ListView
+                    android:layout_marginTop="20dp"/>
+            <TextView
                     android:id="@+id/AwayLineupForward"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    tools:ignore="NestedScrolling"/>
+                    android:layout_marginTop="20dp"/>
         </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
             <TextView
-                    android:id="@+id/LineupSubs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lineup_defender"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="130dp"
+                    android:text="Lineup Subs"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
                     tools:ignore="RelativeOverlap"/>
-            <ListView
+            <TextView
                     android:id="@+id/HomeLineupSubs"
                     android:layout_width="100dp"
+                    android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    tools:ignore="NestedScrolling"/>
-            <ListView
+                    android:textAlignment="center"/>
+            <TextView
                     android:id="@+id/AwayLineupSubs"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true" tools:ignore="NestedScrolling"/>
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentTop="true"/>
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

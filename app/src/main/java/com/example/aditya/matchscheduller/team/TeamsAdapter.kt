@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.aditya.matchscheduller.R
-import com.example.aditya.matchscheduller.data.Team
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.*
 
@@ -30,29 +29,33 @@ class TeamUI : AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View {
         return with(ui) {
             linearLayout {
-                lparams(width = matchParent, height = wrapContent)
-                padding = dip(16)
-                orientation = LinearLayout.HORIZONTAL
-
-                imageView {
-                    id = R.id.team_badge
-                }.lparams{
-                    height = dip(50)
-                    width = dip(50)
+                lparams {
+                    width = matchParent
+                    height = wrapContent
+                    padding = dip(16)
+                    bottomMargin = dip(50)
                 }
+                    orientation = LinearLayout.HORIZONTAL
 
-                textView {
-                    id = R.id.team_name
-                    textSize = 16f
-                }.lparams{
-                    margin = dip(15)
+                    imageView {
+                        id = R.id.team_badge
+                    }.lparams{
+                        height = dip(50)
+                        width = dip(50)
+                    }
+
+                    textView {
+                        id = R.id.team_name
+                        textSize = 16f
+                    }.lparams{
+                        margin = dip(15)
+                        bottomMargin = dip(20)
+                    }
                 }
 
             }
         }
     }
-
-}
 
 class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view){
 

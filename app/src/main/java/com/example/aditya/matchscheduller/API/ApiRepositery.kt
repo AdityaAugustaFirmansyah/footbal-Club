@@ -1,4 +1,4 @@
-package com.example.aditya.matchscheduller.API
+package com.example.aditya.matchscheduller.api
 
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope

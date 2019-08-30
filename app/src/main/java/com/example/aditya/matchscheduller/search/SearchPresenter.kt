@@ -1,10 +1,8 @@
 package com.example.aditya.matchscheduller.search
 
-import android.util.Log
-import com.example.aditya.matchscheduller.API.ApiRepositery
-import com.example.aditya.matchscheduller.API.TheSportDBApi
+import com.example.aditya.matchscheduller.api.ApiRepositery
+import com.example.aditya.matchscheduller.api.TheSportDBApi
 import com.example.aditya.matchscheduller.CoroutineContextProvider
-import com.example.aditya.matchscheduller.data.SearchNextMatchResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,9 +23,14 @@ class SearchPresenter(
                     .doRequest(TheSportDBApi.getDataSearchMatch(league)).await(),
                 SearchNextMatchResponse::class.java
             )
+            if(data.events!=null){
+                view.showMatchSearch(data.events)
+                view.hideLoading()
+            }else{
+                view.showError("Data Tidak Ditemukan")
+                view.hideLoading()
+            }
 
-            view.hideLoading()
-            view.showMatchSearch(data.events)
         }
     }
 

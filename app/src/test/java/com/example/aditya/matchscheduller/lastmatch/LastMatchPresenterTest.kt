@@ -1,11 +1,7 @@
 package com.example.aditya.matchscheduller.lastmatch
 
-import com.example.aditya.matchscheduller.API.ApiRepositery
-import com.example.aditya.matchscheduller.API.TheSportDBApi
-import com.example.aditya.matchscheduller.data.LastMatch
-import com.example.aditya.matchscheduller.data.LastMatchResponse
-import com.example.aditya.matchscheduller.presenter.LastMatchPresenter
-import com.example.aditya.matchscheduller.view.LastMatchView
+import com.example.aditya.matchscheduller.api.ApiRepositery
+import com.example.aditya.matchscheduller.api.TheSportDBApi
 import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -18,7 +14,7 @@ import org.mockito.MockitoAnnotations
 
 class LastMatchPresenterTest{
     @Mock
-    private lateinit var view:LastMatchView
+    private lateinit var view: LastMatchView
 
     @Mock
     private lateinit var gson: Gson
@@ -30,7 +26,12 @@ class LastMatchPresenterTest{
     @Before
     fun setUp(){
         MockitoAnnotations.initMocks(this)
-        presenter = LastMatchPresenter(view,gson,apiRepositery,TestContextProvider())
+        presenter = LastMatchPresenter(
+            view,
+            gson,
+            apiRepositery,
+            TestContextProvider()
+        )
     }
     @Test
     fun testGetLastMatch(){

@@ -1,9 +1,8 @@
 package com.example.aditya.matchscheduller.team
 
-import com.example.aditya.matchscheduller.API.ApiRepositery
-import com.example.aditya.matchscheduller.API.TheSportDBApi
+import com.example.aditya.matchscheduller.api.ApiRepositery
+import com.example.aditya.matchscheduller.api.TheSportDBApi
 import com.example.aditya.matchscheduller.CoroutineContextProvider
-import com.example.aditya.matchscheduller.data.TeamResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,8 +21,12 @@ class TeamsPresenter(private val view: TeamsView,
                     .doRequest(TheSportDBApi.getTeams(league)).await(),
                 TeamResponse::class.java
             )
+            if (data==null){
+                view.showError("Data Team Gagal Di Tampilkan")
+            }else{
+                view.showTeamList(data.teams)
+            }
 
-            view.showTeamList(data.teams)
             view.hideLoading()
         }
     }
@@ -40,8 +43,11 @@ class TeamsPresenter(private val view: TeamsView,
                 )
 
                 view.hideLoading()
-                view.showTeamList(data.teams)
-
+                if (data.teams == null){
+                    view.showError("Data Tidak Ditemukan")
+                }else{
+                    view.showTeamList(data.teams)
+                }
             }
         }
     }

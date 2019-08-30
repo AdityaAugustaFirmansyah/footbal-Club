@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="150dp"
+        android:padding="16dp"
+        android:id="@+id/card_league"
+        android:layout_margin="16dp"
+        android:layout_height="150dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_background"
+                android:id="@+id/image_league"
+                android:contentDescription="@string/image_league"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:id="@+id/tv_league"
+                android:layout_marginTop="10dp"
+                android:text="@string/name_league"/>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".player.Player">
 
     <android.support.v7.widget.RecyclerView
@@ -12,6 +13,12 @@
             android:id="@+id/list_player">
 
     </android.support.v7.widget.RecyclerView>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:id="@+id/txt_error_player"/>
 
     <ProgressBar
             android:layout_width="match_parent"

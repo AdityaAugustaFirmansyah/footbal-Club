@@ -7,23 +7,19 @@
         android:layout_height="match_parent"
         tools:context=".search.SearchMatch">
 
-    <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar_search">
-
-    </android.support.v7.widget.Toolbar>
-
     <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/progress_search"/>
-
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_search_match"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/list_search"
             android:layout_below="@+id/progress_search"/>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.aditya.matchscheduller.R
 import kotlinx.android.synthetic.main.fragment_description.view.*
-import org.jetbrains.anko.bundleOf
+import androidx.core.os.bundleOf
 
 
 class Description : Fragment() {
